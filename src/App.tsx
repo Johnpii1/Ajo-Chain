@@ -1,135 +1,210 @@
-
 const navItems = ['Dashboard', 'Groups', 'Contributions', 'Members', 'Settings'];
 
-const steps = [
-  { title: 'Create a circle', copy: 'Set contribution amounts, member limits, payout order, and savings cadence in minutes.' },
-  { title: 'Invite trusted members', copy: 'Bring your community together with transparent rules and shared accountability.' },
-  { title: 'Contribute on schedule', copy: 'Track deposits, upcoming turns, and group progress through a clean member dashboard.' },
-  { title: 'Receive payouts', copy: 'Members receive scheduled payouts with records designed for Stellar and Soroban rails.' },
+const metrics = [
+  { label: 'Total Savings', value: '$48,250', detail: '+12.5% from last month', icon: 'coin' },
+  { label: 'Active Groups', value: '8', detail: '3 payout cycles in progress', icon: 'users' },
+  { label: 'Upcoming Payouts', value: '$9,750', detail: 'Next payout on Jun 18', icon: 'calendar' },
 ];
 
-const features = [
-  { icon: 'users', title: 'Savings groups', copy: 'Launch and manage multiple rotating savings circles from one workspace.' },
-  { icon: 'shield', title: 'Transparent rules', copy: 'Clear contribution schedules and payout sequencing for every participant.' },
-  { icon: 'network', title: 'Soroban-ready', copy: 'Frontend foundation prepared for future smart contract interactions.' },
-  { icon: 'globe', title: 'Borderless access', copy: 'A fintech experience designed for global communities and digital-first savers.' },
+const contributionHistory = [
+  { group: 'Founders Circle', member: 'Maya Chen', date: 'Jun 10, 2026', amount: '$500', status: 'Completed' },
+  { group: 'Family Builders', member: 'Luis Okafor', date: 'Jun 07, 2026', amount: '$250', status: 'Completed' },
+  { group: 'Stellar Savers', member: 'Amina Bello', date: 'Jun 03, 2026', amount: '$750', status: 'Completed' },
+  { group: 'Market Women Co-op', member: 'Priya Shah', date: 'May 28, 2026', amount: '$400', status: 'Completed' },
 ];
 
-const benefits = ['Lower friction for community savings', 'Modern records for every contribution', 'Designed for mobile and desktop users', 'Built with a scalable frontend structure'];
+const upcomingPayouts = [
+  { name: 'Maya Chen', group: 'Founders Circle', amount: '$6,000', date: 'Jun 18' },
+  { name: 'Luis Okafor', group: 'Family Builders', amount: '$2,500', date: 'Jun 21' },
+  { name: 'Priya Shah', group: 'Market Women Co-op', amount: '$1,250', date: 'Jun 28' },
+];
 
-const history = [
-  { group: 'Founders Circle', date: 'Jun 10, 2026', amount: '$500', status: 'Completed' },
-  { group: 'Family Builders', date: 'Jun 03, 2026', amount: '$250', status: 'Completed' },
-  { group: 'Stellar Savers', date: 'May 28, 2026', amount: '$750', status: 'Completed' },
+const groupProgress = [
+  { name: 'Founders Circle', saved: '$24,000', progress: '80%' },
+  { name: 'Family Builders', saved: '$11,250', progress: '56%' },
+  { name: 'Stellar Savers', saved: '$8,500', progress: '68%' },
 ];
 
 function App() {
   return (
-    <main className="min-h-screen overflow-hidden bg-slate-950 text-slate-100">
-      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(20,184,166,0.22),transparent_32%),radial-gradient(circle_at_80%_20%,rgba(59,130,246,0.18),transparent_28%),linear-gradient(180deg,#020617,#0f172a)]" />
-      <LandingPage />
-      <DashboardPage />
+    <main className="min-h-screen bg-slate-950 text-slate-100">
+      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(45,212,191,0.22),transparent_30%),radial-gradient(circle_at_80%_10%,rgba(59,130,246,0.18),transparent_26%),linear-gradient(135deg,#020617,#0f172a_48%,#111827)]" />
+      <div className="flex min-h-screen flex-col lg:flex-row">
+        <Sidebar />
+        <DashboardPage />
+      </div>
     </main>
   );
 }
 
-function LandingPage() {
+function Sidebar() {
   return (
-    <section className="relative px-6 py-6 lg:px-10">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between rounded-3xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">
-        <div className="flex items-center gap-3">
-          <div className="grid h-10 w-10 place-items-center rounded-2xl bg-teal-400 text-slate-950 shadow-lg shadow-teal-400/30"><Icon name="coin" /></div>
-          <span className="text-xl font-bold tracking-tight">AjoChain</span>
-        </div>
-        <div className="hidden items-center gap-8 text-sm text-slate-300 md:flex">
-          <a href="#how" className="hover:text-white">How it works</a>
-          <a href="#features" className="hover:text-white">Features</a>
-          <a href="#dashboard" className="hover:text-white">Dashboard</a>
-        </div>
-        <button className="hidden rounded-full bg-white px-5 py-2 text-sm font-semibold text-slate-950 md:block">Launch App</button>
-        <span className="md:hidden text-2xl">☰</span>
-      </nav>
-
-      <div className="mx-auto grid max-w-7xl items-center gap-14 py-20 lg:grid-cols-[1.08fr_0.92fr] lg:py-28">
+    <aside className="border-b border-white/10 bg-slate-950/80 p-5 backdrop-blur-xl lg:sticky lg:top-0 lg:h-screen lg:w-72 lg:border-b-0 lg:border-r">
+      <div className="mb-8 flex items-center gap-3">
+        <div className="grid h-12 w-12 place-items-center rounded-2xl bg-teal-300 text-2xl text-slate-950 shadow-lg shadow-teal-500/25">◉</div>
         <div>
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-teal-300/20 bg-teal-300/10 px-4 py-2 text-sm text-teal-200"><Icon name="spark" /> Stellar + Soroban savings circles</div>
-          <h1 className="max-w-4xl text-5xl font-black leading-tight tracking-tight text-white md:text-7xl">Save Together. Grow Together.</h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">A decentralized savings circle platform powered by Stellar and Soroban.</p>
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <button className="group rounded-full bg-teal-400 px-7 py-4 font-bold text-slate-950 shadow-2xl shadow-teal-500/20 transition hover:bg-teal-300">Create a Group <span className="ml-2 inline-block transition group-hover:translate-x-1">→</span></button>
-            <button className="rounded-full border border-white/15 bg-white/5 px-7 py-4 font-bold text-white backdrop-blur transition hover:bg-white/10">Learn More</button>
-          </div>
-        </div>
-        <div className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-5 shadow-2xl shadow-black/30 backdrop-blur-xl">
-          <div className="rounded-[1.5rem] bg-slate-900/90 p-6">
-            <div className="flex items-center justify-between"><span className="text-sm text-slate-400">Circle balance</span><Icon name="wallet" className="text-teal-300" /></div>
-            <p className="mt-4 text-5xl font-black">$48,250</p>
-            <div className="mt-8 h-3 rounded-full bg-slate-800"><div className="h-3 w-3/4 rounded-full bg-gradient-to-r from-teal-300 to-blue-400" /></div>
-            <div className="mt-8 grid grid-cols-2 gap-4">
-              {['12 members', '4 payouts', '98% on-time', '3 groups'].map((item) => <div key={item} className="rounded-2xl bg-white/5 p-4 text-sm font-semibold">{item}</div>)}
-            </div>
-          </div>
+          <p className="text-xl font-black tracking-tight text-white">AjoChain</p>
+          <p className="text-xs text-slate-400">Savings circles dashboard</p>
         </div>
       </div>
 
-      <section id="how" className="mx-auto max-w-7xl py-16">
-        <SectionHeader eyebrow="How it works" title="Coordinate savings circles with clarity." />
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">{steps.map((step, index) => <InfoCard key={step.title} prefix={`0${index + 1}`} {...step} />)}</div>
-      </section>
+      <nav className="grid gap-2 sm:grid-cols-5 lg:grid-cols-1">
+        {navItems.map((item) => (
+          <a
+            key={item}
+            href="#"
+            className={`flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition ${
+              item === 'Dashboard'
+                ? 'bg-teal-300 text-slate-950 shadow-lg shadow-teal-500/20'
+                : 'text-slate-300 hover:bg-white/10 hover:text-white'
+            }`}
+          >
+            <Icon name={item} />
+            {item}
+          </a>
+        ))}
+      </nav>
 
-      <section id="features" className="mx-auto max-w-7xl py-16">
-        <SectionHeader eyebrow="Features" title="Everything needed for the frontend foundation." />
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">{features.map(({ icon, ...feature }) => <div key={feature.title} className="rounded-3xl border border-white/10 bg-white/[0.04] p-6"><Icon name={icon} className="mb-5 text-teal-300" /><h3 className="text-xl font-bold">{feature.title}</h3><p className="mt-3 text-sm leading-6 text-slate-400">{feature.copy}</p></div>)}</div>
-      </section>
-
-      <section className="mx-auto grid max-w-7xl gap-8 py-16 lg:grid-cols-2">
-        <div><SectionHeader eyebrow="Benefits" title="Built for communities that save with purpose." /></div>
-        <div className="grid gap-4">{benefits.map((benefit) => <div key={benefit} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4"><Icon name="check" className="text-teal-300" />{benefit}</div>)}</div>
-      </section>
-
-      <section className="mx-auto my-16 max-w-7xl rounded-[2rem] border border-teal-300/20 bg-gradient-to-r from-teal-400/20 to-blue-500/20 p-10 text-center shadow-2xl shadow-teal-950/30">
-        <h2 className="text-4xl font-black">Start your first AjoChain circle.</h2>
-        <p className="mx-auto mt-4 max-w-2xl text-slate-300">Create transparent group savings experiences today and connect blockchain functionality later.</p>
-        <button className="mt-8 rounded-full bg-teal-300 px-8 py-4 font-bold text-slate-950">Create a Group</button>
-      </section>
-    </section>
+      <div className="mt-8 hidden rounded-3xl border border-teal-300/20 bg-teal-300/10 p-5 lg:block">
+        <p className="text-sm font-bold text-teal-200">Next contribution</p>
+        <p className="mt-2 text-2xl font-black text-white">$500</p>
+        <p className="mt-1 text-sm text-slate-400">Due in 3 days for Founders Circle.</p>
+      </div>
+    </aside>
   );
 }
 
 function DashboardPage() {
   return (
-    <section id="dashboard" className="border-t border-white/10 bg-slate-950/80 px-6 py-20 lg:px-10">
-      <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[260px_1fr]">
-        <aside className="rounded-3xl border border-white/10 bg-white/[0.04] p-5">
-          <div className="mb-8 flex items-center gap-3 text-xl font-bold"><Icon name="dashboard" className="text-teal-300" /> Dashboard</div>
-          <nav className="space-y-2">{navItems.map((item) => <a key={item} className={`flex items-center gap-3 rounded-2xl px-4 py-3 text-sm ${item === 'Dashboard' ? 'bg-teal-400 text-slate-950 font-bold' : 'text-slate-300 hover:bg-white/5'}`} href="#dashboard">{item === 'Settings' ? <Icon name="settings" /> : <Icon name="chart" />}{item}</a>)}</nav>
-        </aside>
-        <div className="space-y-6">
-          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end"><div><p className="text-teal-300">AjoChain app UI</p><h2 className="text-4xl font-black">Savings Dashboard</h2></div><button className="rounded-full bg-white px-5 py-3 font-bold text-slate-950">New Group</button></div>
-          <div className="grid gap-5 md:grid-cols-3">
-            <Metric icon="coin" label="Total Savings" value="$48,250" />
-            <Metric icon="users" label="Active Groups" value="3" />
-            <Metric icon="calendar" label="Upcoming Payouts" value="2" />
-          </div>
-          <div className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
-            <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-6"><h3 className="mb-5 text-xl font-bold">Contribution History</h3><div className="space-y-3">{history.map((row) => <div key={row.group} className="grid grid-cols-2 gap-3 rounded-2xl bg-slate-900/80 p-4 text-sm md:grid-cols-4"><span className="font-semibold">{row.group}</span><span className="text-slate-400">{row.date}</span><span>{row.amount}</span><span className="text-teal-300">{row.status}</span></div>)}</div></div>
-            <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-6"><h3 className="text-xl font-bold">Upcoming Payouts</h3><div className="mt-6 space-y-4"><Payout name="Maya Chen" group="Founders Circle" amount="$6,000" /><Payout name="Luis Okafor" group="Family Builders" amount="$2,500" /></div></div>
-          </div>
+    <section className="flex-1 px-5 py-8 sm:px-8 lg:px-10">
+      <header className="mb-8 flex flex-col justify-between gap-5 xl:flex-row xl:items-center">
+        <div>
+          <p className="font-bold uppercase tracking-[0.3em] text-teal-300">Dashboard</p>
+          <h1 className="mt-3 text-4xl font-black tracking-tight text-white md:text-6xl">Welcome back, Ada</h1>
+          <p className="mt-3 max-w-2xl text-slate-300">Monitor savings, group activity, upcoming payouts, and contribution records from one clean AjoChain workspace.</p>
         </div>
+        <button className="w-full rounded-full bg-white px-6 py-3 font-bold text-slate-950 transition hover:bg-teal-100 sm:w-auto">Create Group</button>
+      </header>
+
+      <div className="grid gap-5 md:grid-cols-3">
+        {metrics.map((metric) => <MetricCard key={metric.label} {...metric} />)}
       </div>
-      <footer className="mx-auto mt-20 flex max-w-7xl flex-col justify-between gap-4 border-t border-white/10 pt-8 text-sm text-slate-400 md:flex-row"><span>© 2026 AjoChain. Frontend foundation.</span><span>Built for Stellar and Soroban communities.</span></footer>
+
+      <div className="mt-6 grid gap-6 xl:grid-cols-[1.35fr_0.85fr]">
+        <ContributionHistory />
+        <UpcomingPayouts />
+      </div>
+
+      <div className="mt-6 grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
+        <ActiveGroups />
+        <SavingsOverview />
+      </div>
     </section>
   );
 }
 
-function SectionHeader({ eyebrow, title }: { eyebrow: string; title: string }) { return <div className="mb-10"><p className="font-bold uppercase tracking-[0.3em] text-teal-300">{eyebrow}</p><h2 className="mt-3 max-w-3xl text-3xl font-black text-white md:text-5xl">{title}</h2></div>; }
-function InfoCard({ prefix, title, copy }: { prefix: string; title: string; copy: string }) { return <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-6"><span className="text-sm font-black text-teal-300">{prefix}</span><h3 className="mt-4 text-xl font-bold">{title}</h3><p className="mt-3 text-sm leading-6 text-slate-400">{copy}</p></div>; }
-function Metric({ icon, label, value }: { icon: string; label: string; value: string }) { return <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-6"><Icon name={icon} className="text-teal-300" /><p className="mt-5 text-sm text-slate-400">{label}</p><p className="mt-2 text-3xl font-black">{value}</p></div>; }
-function Payout({ name, group, amount }: { name: string; group: string; amount: string }) { return <div className="rounded-2xl bg-slate-900/80 p-4"><div className="flex items-center justify-between"><span className="font-bold">{name}</span><span className="text-teal-300">{amount}</span></div><p className="mt-1 text-sm text-slate-400">{group}</p></div>; }
+function MetricCard({ label, value, detail, icon }: { label: string; value: string; detail: string; icon: string }) {
+  return (
+    <article className="rounded-[1.75rem] border border-white/10 bg-white/[0.06] p-6 shadow-2xl shadow-black/20 backdrop-blur-xl">
+      <div className="flex items-center justify-between">
+        <span className="grid h-12 w-12 place-items-center rounded-2xl bg-teal-300/15 text-2xl text-teal-200"><Icon name={icon} /></span>
+        <span className="rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-bold text-emerald-300">Live</span>
+      </div>
+      <p className="mt-6 text-sm text-slate-400">{label}</p>
+      <p className="mt-2 text-4xl font-black text-white">{value}</p>
+      <p className="mt-2 text-sm text-slate-400">{detail}</p>
+    </article>
+  );
+}
 
-function Icon({ name, className = "" }: { name: string; className?: string }) {
-  const symbols: Record<string, string> = { coin: "◉", spark: "✦", wallet: "▣", check: "✓", dashboard: "▦", settings: "⚙", chart: "▥", users: "◌", shield: "◇", network: "⌬", globe: "◎", calendar: "◷" };
-  return <span className={`inline-flex h-6 w-6 items-center justify-center text-xl ${className}`} aria-hidden="true">{symbols[name] ?? "•"}</span>;
+function ContributionHistory() {
+  return (
+    <section className="rounded-[1.75rem] border border-white/10 bg-white/[0.06] p-6 shadow-2xl shadow-black/20 backdrop-blur-xl">
+      <div className="mb-5 flex items-center justify-between gap-4">
+        <div>
+          <h2 className="text-2xl font-black text-white">Contribution History</h2>
+          <p className="text-sm text-slate-400">Recent member deposits across groups.</p>
+        </div>
+        <button className="rounded-full border border-white/10 px-4 py-2 text-sm font-bold text-slate-200 hover:bg-white/10">View all</button>
+      </div>
+      <div className="overflow-hidden rounded-2xl border border-white/10">
+        <div className="hidden grid-cols-[1.2fr_1fr_0.9fr_0.7fr_0.8fr] bg-slate-900/80 px-4 py-3 text-xs font-bold uppercase tracking-wider text-slate-400 md:grid">
+          <span>Group</span><span>Member</span><span>Date</span><span>Amount</span><span>Status</span>
+        </div>
+        {contributionHistory.map((row) => (
+          <div key={`${row.group}-${row.date}`} className="grid gap-2 border-t border-white/10 bg-slate-950/40 px-4 py-4 text-sm md:grid-cols-[1.2fr_1fr_0.9fr_0.7fr_0.8fr]">
+            <span className="font-bold text-white">{row.group}</span>
+            <span className="text-slate-300">{row.member}</span>
+            <span className="text-slate-400">{row.date}</span>
+            <span className="font-bold text-white">{row.amount}</span>
+            <span className="w-fit rounded-full bg-teal-300/10 px-3 py-1 text-xs font-bold text-teal-200">{row.status}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function UpcomingPayouts() {
+  return (
+    <section className="rounded-[1.75rem] border border-white/10 bg-white/[0.06] p-6 shadow-2xl shadow-black/20 backdrop-blur-xl">
+      <h2 className="text-2xl font-black text-white">Upcoming Payouts</h2>
+      <p className="text-sm text-slate-400">Scheduled recipient turns.</p>
+      <div className="mt-6 space-y-4">
+        {upcomingPayouts.map((payout) => (
+          <article key={payout.name} className="rounded-2xl bg-slate-950/60 p-4">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="font-bold text-white">{payout.name}</p>
+                <p className="mt-1 text-sm text-slate-400">{payout.group}</p>
+              </div>
+              <p className="font-black text-teal-200">{payout.amount}</p>
+            </div>
+            <div className="mt-4 rounded-xl bg-white/5 px-3 py-2 text-sm text-slate-300">Payout date: {payout.date}</div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ActiveGroups() {
+  return (
+    <section className="rounded-[1.75rem] border border-white/10 bg-white/[0.06] p-6 shadow-2xl shadow-black/20 backdrop-blur-xl">
+      <h2 className="text-2xl font-black text-white">Active Groups</h2>
+      <div className="mt-6 space-y-4">
+        {groupProgress.map((group) => (
+          <div key={group.name}>
+            <div className="mb-2 flex justify-between text-sm"><span className="font-bold text-white">{group.name}</span><span className="text-slate-400">{group.saved}</span></div>
+            <div className="h-3 rounded-full bg-slate-800"><div className="h-3 rounded-full bg-gradient-to-r from-teal-300 to-blue-400" style={{ width: group.progress }} /></div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function SavingsOverview() {
+  return (
+    <section className="rounded-[1.75rem] border border-white/10 bg-white/[0.06] p-6 shadow-2xl shadow-black/20 backdrop-blur-xl">
+      <h2 className="text-2xl font-black text-white">Savings Overview</h2>
+      <div className="mt-6 flex h-64 items-end gap-3 rounded-2xl bg-slate-950/50 p-4">
+        {['35%', '48%', '42%', '60%', '72%', '66%', '88%'].map((height, index) => (
+          <div key={height} className="flex flex-1 flex-col items-center gap-3">
+            <div className="w-full rounded-t-2xl bg-gradient-to-t from-teal-400 to-blue-400" style={{ height }} />
+            <span className="text-xs text-slate-500">W{index + 1}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Icon({ name }: { name: string }) {
+  const symbols: Record<string, string> = {
+    Dashboard: '▦', Groups: '◌', Contributions: '↗', Members: '◎', Settings: '⚙', coin: '◉', users: '◌', calendar: '◷',
+  };
+  return <span aria-hidden="true">{symbols[name] ?? '•'}</span>;
 }
 
 export default App;
